@@ -88,15 +88,15 @@
 \date{July 30, 2025}
 \maketitle
 
-Last week we looked at some advanced topics: Sigma protocols and the OMDL and AMODL assumptions. In our final week of prework, we will review and reinforce our understanding of the Schnorr security proof, as well as practice writing security definitions for new protocols. We will also briefly introduce Schnorr multi-signatures and Schnorr threshold signatures.\\
+Last week we looked at some advanced topics: Sigma protocols and the OMDL and AMODL assumptions. In this week, we will review and reinforce our understanding of the Schnorr security proof, as well as practice writing security definitions for new protocols. We will also briefly introduce Schnorr multi-signatures.\\
 
-Before we begin, let us take a moment to take another pass at the range proofs that were discussed in our last call together.
+Before we begin, let us take a moment to take a pass at range proofs.
 
-\begin{exercise} Recall that for a group $\G$ of worder $p$ with generators  $g$ and $h$, a Pedersen commitment to $x\in\Z_p$ with randomness $y\in\Z_p$ is of the form $C = g^xh^y$.
+\begin{exercise} Recall that for a group $\G$ of order $p$ with generators  $g$ and $h$, a Pedersen commitment to $x\in\Z_p$ with randomness $y\in\Z_p$ is of the form $C = g^xh^y$.
 \begin{enumerate}[(a)]
 \item Construct a special HVZK Sigma protocol with special soundness for the statement that a commitment value, $C$, is a Pedersen commitment for the value $x = 1$ (without revealing $y$, of course). Create this protocol by starting with the Schnorr ID protocol for $h^y$ and modifying the verification step at the end.
 \item Next, use the OR construction for Sigma protocols from last week to construct a special HVZK Sigma protocol with special soundness for the statement that a commitment value, C, is a Pedersen commitment for either the value $x = 0$, or the value $x = 1$ (without revealing which, of course).
-\item Instead of computing $C = \text{Commit}(x; y)$ by generating a random value of $y$ and returning $g^xh^y$, we will instead generate $n$ random values, $y0, \ldots, y_{n-1}$ and let $y$ be equal to $y_0 + 2y_1 + \cdots + 2^{n-1}y_{n-1}\bmod p$. Then, if $x$ is equal to $x_0 + 2x_1 + \cdots + 2^{n-1}x_{n-1}$ (where the $x_i$ are $x$’s bits in binary) we get that $C = \prod_i \text{Commit}(x_i; y_i)(2^i)$ and each of the $x_i$ is either equal to 0 or 1! Because our commitments are perfectly hiding, it is safe to share the values $\text{Commit}(x_i; y_i)$.
+\item Instead of computing $C = \text{Commit}(x; y)$ by generating a random value of $y$ and returning $g^xh^y$, we will instead generate $n$ random values, $y_0, \ldots, y_{n-1}$ and let $y$ be equal to $y_0 + 2y_1 + \cdots + 2^{n-1}y_{n-1}\bmod p$. Then, if $x$ is equal to $x_0 + 2x_1 + \cdots + 2^{n-1}x_{n-1}$ (where the $x_i$ are $x$’s bits in binary) we get that $C = \prod_i \text{Commit}(x_i; y_i)^{2^i}$ and each of the $x_i$ is either equal to 0 or 1! Because our commitments are perfectly hiding, it is safe to share the values $\text{Commit}(x_i; y_i)$.
 
 Using your solution to the previous part, write down an explicit Sigma protocol for the statement that all of the commitments, $C_i = \text{Commit}(x_i; y_i)$, are committed to a bit (0 or 1). Alongside the verification that $C = \prod_i C_i^{2^i}$, this constitutes a range proof!
 \end{enumerate}
